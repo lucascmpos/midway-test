@@ -9,12 +9,12 @@ const Button: React.FC<ButtonProps> = ({
   variant = "default",
   onClick,
   children,
-  className = "px-4 py-2 w-fit rounded-full",
+  className = "px-6 font-medium py-2 h-fit w-fit rounded-full",
 }) => {
   const isDisabled = variant === "disabled";
 
   const buttonClass = classNames(className, {
-    "bg-main-700m text-white": variant === "default",
+    "bg-midway-green-600 text-white": variant === "default",
     "bg-disabled-grey text-white cursor-not-allowed": isDisabled,
   });
 

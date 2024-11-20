@@ -19,6 +19,14 @@
       "expo-router",
       [
         "expo-splash-screen"
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Montserrat-Regular.otf"
+          ]
+        }
       ]
     ],
     "experiments": {

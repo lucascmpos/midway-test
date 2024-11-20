@@ -5,8 +5,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "main-700m": "#00726D",
+        "midway-green-600": "#00726D",
+        "midway-green-500": "#E5FFFE",
+        "midway-green-700": "#004D49",
+        "midway-green-800": "#1F2B2A",
         "disabled-grey": "#9D9B9B",
+        "midway-grey-800": "#252525"
+      },
+      fontFamily: {
+        montserrat: ['Montserrat', 'sans-serif'],
       },
     },
   },
