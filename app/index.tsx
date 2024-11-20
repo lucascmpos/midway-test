@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchAccountData } from "./api/fetch-account-data";
 import { CircleDollarSign } from "lucide-react-native";
 import { Link, router } from "expo-router";
+import { Text, View } from "react-native";
 
 export default function HomeScreen() {
   const [ownerName, setOwnerName] = useState("");
@@ -20,22 +21,24 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <div className="flex flex-col h-full items-center justify-center">
-      <h1 className="font-semibold text-2xl">
+    <Text className="flex flex-col h-full items-center justify-center">
+      <Text className="font-semibold text-2xl">
         Bom dia, <span className="text-midway-green-600">{ownerName}</span>!
-      </h1>
+      </Text>
 
-      <h2 className="font-medium text-gray-500">O que deseja fazer hoje?</h2>
+      <Text className="font-medium text-gray-500">
+        O que deseja fazer hoje?
+      </Text>
 
-      <div className="flex gap-4 mt-4">
+      <View className="flex gap-4 mt-4">
         <Link
           href="/payment-method"
           className="px-4 py-8 gap-2 flex flex-col text-midway-green-600 items-center shadow-md rounded-lg"
         >
-          <p className="font-medium text-lg">Transferencia PIX</p>
+          <Text className="font-medium text-lg">Transferencia PIX</Text>
           <CircleDollarSign size={32} />
         </Link>
-      </div>
-    </div>
+      </View>
+    </Text>
   );
 }

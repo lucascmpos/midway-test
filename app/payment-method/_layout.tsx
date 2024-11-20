@@ -1,26 +1,21 @@
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import Footer from "./components/footer";
-import { ScrollView } from "react-native";
-import { useState } from "react";
 import PaymentMethodScreen from "./index";
+import { PaymentContext, PaymentProvider } from "./context/payment-context";
+import { useContext } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function PaymentMethodLayout() {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
-    string | null
-  >(null);
-
   return (
-    <>
-      <ScrollView className="flex flex-col h-full pt-8 gap-6">
-        <PaymentMethodScreen
-          selectedPaymentMethod={selectedPaymentMethod}
-          setSelectedPaymentMethod={setSelectedPaymentMethod}
-        />
-      </ScrollView>
-      <Footer isDisabled={!selectedPaymentMethod} />
-    </>
+    <PaymentProvider>
+      <div className="flex flex-col h-full">
+        <div className="flex-grow overflow-y-auto">
+          <PaymentMethodScreen />
+        </div>
+        <Footer />
+      </div>
+    </PaymentProvider>
   );
 }
