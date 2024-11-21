@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/71575685-c746-4770-b3cc-be83f8740b57
 - [Tech](#-tecnologias-utilizadas)
 - [Rodar](#-como-baixar-o-projeto)
 
-## 📗 About
+## 📗 Sobre
 
 Desenvolver uma interface de usuário conforme protótipo de UX para uma jornada de pagamento via PIX utilizando cartão de crédito. Usuário pode escolher entre saldo bancario ou cartão de crédito parcelado para realizar o pagamento via PIX.
 
@@ -34,7 +34,7 @@ Desenvolver uma interface de usuário conforme protótipo de UX para uma jornada
 
 ---
 
-## 🎮 Como rodar o projeto
+## 🎮 Como baixar o projeto
 
 
 ```bash - cmd
