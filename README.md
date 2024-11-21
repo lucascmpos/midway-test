@@ -59,5 +59,3 @@ Desenvolver uma interface de usuário conforme protótipo de UX para uma jornada
 ```
 
 ---
-
-Developed by 🐉 Lucas Campos
