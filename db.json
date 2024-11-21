@@ -10,7 +10,7 @@
     },
     "cards": [
       {
-        "cardId": "153455-15312313",
+        "cardId": "153455-15312313-1",
         "name": "Platinum",
         "securityCode": "***",
         "cardNumber": "**********181",
@@ -21,7 +21,7 @@
         "used": true
       },
       {
-        "cardId": "153455-15312313",
+        "cardId": "153455-15312313-2",
         "name": "NuCard",
         "securityCode": "***",
         "cardNumber": "**********222",

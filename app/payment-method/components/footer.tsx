@@ -4,31 +4,18 @@ import Button from "@/app/components/button";
 import { useEffect, useState, useContext } from "react";
 import { fetchPaymentData } from "@/app/api/fetch-payment-data";
 import { PaymentData } from "@/app/types/payment-data";
-import { PaymentContext } from "../context/payment-context";
+import { PaymentContext } from "../../context/payment-context";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function Footer() {
-  const context = useContext(PaymentContext);
-  if (!context) {
+  const paymentContext = useContext(PaymentContext);
+  if (!paymentContext) {
     throw new Error("Footer must be used within a PaymentProvider");
   }
 
-  const { selectedPaymentMethod, selectedInstallment } = context;
-  const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
-
-  useEffect(() => {
-    const getPaymentData = async () => {
-      try {
-        const payment = await fetchPaymentData();
-        setPaymentData(payment);
-      } catch (error) {
-        console.error("Failed to fetch simulation data:", error);
-      }
-    };
-
-    getPaymentData();
-  }, []);
+  const { selectedInstallment, selectedPaymentMethod, paymentData } =
+    paymentContext;
 
   const totalAmount = selectedInstallment
     ? paymentData?.simulation.find(
@@ -45,7 +32,13 @@ export default function Footer() {
           {totalAmount?.toFixed(2).replace(".", ",")}
         </p>
       </div>
-      <Button variant={!selectedPaymentMethod ? "disabled" : "default"}>
+      <Button
+        variant={
+          !selectedInstallment && selectedPaymentMethod !== "account"
+            ? "disabled"
+            : "default"
+        }
+      >
         Pagar
       </Button>
     </div>
