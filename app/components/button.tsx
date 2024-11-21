@@ -1,32 +1,34 @@
-import React, { ButtonHTMLAttributes } from "react";
+import React from "react";
+import { Pressable } from "react-native";
 import classNames from "classnames";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
+  onClick?: () => void;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  className?: string;
   variant?: "default" | "disabled";
 }
 
-const Button: React.FC<ButtonProps> = ({
-  variant = "default",
+export default function Button({
   onClick,
   children,
-  className = "px-6 font-medium py-2 h-fit w-fit rounded-full",
-}) => {
-  const isDisabled = variant === "disabled";
-
-  const buttonClass = classNames(className, {
-    "bg-midway-green-600 text-white": variant === "default",
-    "bg-disabled-grey text-white cursor-not-allowed": isDisabled,
-  });
+  disabled = false,
+  className = "",
+  variant = "default",
+}: ButtonProps) {
+  const buttonClass = classNames(
+    "px-4 py-1 rounded-full font-medium text-white",
+    {
+      "": variant === "default" && !disabled,
+      "bg-disabled-grey cursor-not-allowed": variant === "disabled" || disabled,
+    },
+    className,
+  );
 
   return (
-    <button
-      className={buttonClass}
-      onClick={isDisabled ? undefined : onClick}
-      disabled={isDisabled}
-    >
+    <Pressable className={buttonClass} onPress={onClick} disabled={disabled}>
       {children}
-    </button>
+    </Pressable>
   );
-};
-
-export default Button;
+}

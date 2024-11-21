@@ -2,6 +2,18 @@ import { useContext } from "react";
 import { AccountContext } from "./context/account-context";
 import { PaymentContext } from "./context/payment-context";
 import { Text, View } from "react-native";
+import { Loader } from "lucide-react-native";
+
+export function Loading() {
+  return (
+    <View className="flex h-full w-full items-center justify-center gap-4 bg-midway-green-700">
+      <Loader size={100} className="animate-pulse text-midway-green-500" />
+      <Text className="text-lg font-medium text-midway-green-500">
+        Carregando...
+      </Text>
+    </View>
+  );
+}
 
 export function LoadingWrapper({ children }: { children: React.ReactNode }) {
   const accountContext = useContext(AccountContext);
@@ -9,7 +21,7 @@ export function LoadingWrapper({ children }: { children: React.ReactNode }) {
 
   if (!accountContext || !paymentContext) {
     throw new Error(
-      "LoadingWrapper must be used within AccountProvider and PaymentProvider"
+      "LoadingWrapper must be used within AccountProvider and PaymentProvider",
     );
   }
 
@@ -17,21 +29,7 @@ export function LoadingWrapper({ children }: { children: React.ReactNode }) {
   const { loading: paymentLoading } = paymentContext;
 
   if (accountLoading || paymentLoading) {
-    return (
-      <View className="w-full flex gap-4  justify-center bg-midway-green-700 items-center h-full">
-        <View className="dot-spinner">
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-          <View className="dot-spinner__dot"></View>
-        </View>
-        <Text className="text-white text-lg font-medium">Carregando...</Text>
-      </View>
-    );
+    return <Loading />;
   }
 
   return <>{children}</>;

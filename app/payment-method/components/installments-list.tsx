@@ -2,6 +2,9 @@ import { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import { X } from "lucide-react-native";
 import React from "react";
 import { Text, View } from "react-native";
+import Footer from "./footer";
+import Button from "@/app/components/button";
+import RadioButton from "@/app/components/radio-button";
 
 interface InstallmentsListProps {
   installments: {
@@ -23,57 +26,47 @@ const InstallmentsList: React.FC<InstallmentsListProps> = ({
   closeSheet,
 }) => {
   return (
-    <BottomSheetScrollView className=" bg-white">
-      <View className="p-4">
-        <View className="flex flex-row justify-between items-center">
-          <Text className="font-bold text-lg">Parcelas do pagamento</Text>
-          <button
-            className="p-1 h-8 w-8 items-center flex bg-midway-green-500 rounded-full"
-            onClick={() => {
-              closeSheet;
-            }}
-          >
-            <X size={24} className="text-midway-green-700" />
-          </button>
-        </View>
-
-        <Text className="text-sm">
-          O destinatário receberá à vista e você pagará parcelado.
-        </Text>
-        <View className="flex flex-col mt-6 gap-2">
-          {installments.map((installment) => (
-            <label
-              key={`${selectedPaymentMethod}-${installment.installments}`}
-              className="flex items-center gap-4 mb-4"
+    <>
+      <BottomSheetScrollView className="bg-white">
+        <View className="p-4">
+          <View className="flex flex-row items-center justify-between">
+            <Text className="text-lg font-bold">Parcelas do pagamento</Text>
+            <Button
+              className="flex h-8 w-8 items-center rounded-full bg-midway-green-500 p-1"
+              onClick={closeSheet}
             >
-              <input
-                type="radio"
-                className="peer hidden"
-                name="installments"
-                value={installment.installments}
-                checked={selectedInstallment === installment.installments}
-                onChange={() =>
+              <X size={24} className="text-midway-green-700" />
+            </Button>
+          </View>
+
+          <Text className="text-sm">
+            O destinatário receberá à vista e você pagará parcelado.
+          </Text>
+          <View className="mt-6 flex flex-col gap-4">
+            {installments.map((installment) => (
+              <View
+                onClick={() =>
                   handleInstallmentSelect(installment.installments)
                 }
-              />
-              <span
-                className="w-6 h-6 flex justify-center items-center border-2 rounded-full 
-               border-midway-green-600 peer-checked:bg-midway-green-600 peer-checked:border-midway-green-600 
-               hover:border-midway-green-600/90 p-1"
-              ></span>
-              <Text className="text-midway-green-600 font-semibold text-[16px] flex-1">
-                {`${
-                  installment.installments
-                }  x  de  R$  ${installment.installmentAmount.toFixed(2)}`}
-              </Text>
-              {/* <Text className="text-gray-500 text-[14px]">
-                {`Total: R$${installment.amountToPay.toFixed(2)}`}
-              </Text> */}
-            </label>
-          ))}
+                className="flex flex-row items-center gap-4 rounded-lg p-4 shadow"
+                key={`${selectedPaymentMethod}-${installment.installments}`}
+              >
+                <RadioButton
+                  selected={selectedInstallment === installment.installments}
+                  onPress={() =>
+                    handleInstallmentSelect(installment.installments)
+                  }
+                />
+                <Text className="flex-1 text-[16px] font-semibold text-midway-green-600">
+                  {`${installment.installments}  x  de  R$  ${installment.installmentAmount.toFixed(2)}`}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
-    </BottomSheetScrollView>
+      </BottomSheetScrollView>
+      <Footer isInsideSheet={true} closeSheet={closeSheet} />
+    </>
   );
 };
 

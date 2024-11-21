@@ -1,45 +1,71 @@
 import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import Button from "@/app/components/button";
-import { useEffect, useState, useContext } from "react";
-import { fetchPaymentData } from "@/app/api/fetch-payment-data";
-import { PaymentData } from "@/app/types/payment-data";
-import { PaymentContext } from "../../context/payment-context";
+import { useRouter } from "expo-router";
+import { Text } from "react-native";
+import { usePaymentContext } from "@/app/hooks/use-payment-context";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function Footer() {
-  const paymentContext = useContext(PaymentContext);
-  if (!paymentContext) {
-    throw new Error("Footer must be used within a PaymentProvider");
-  }
+interface FooterProps {
+  isInsideSheet?: boolean;
+  closeSheet?: () => void;
+}
 
+export default function Footer({
+  isInsideSheet = false,
+  closeSheet,
+}: FooterProps) {
+  const paymentContext = usePaymentContext();
+  const router = useRouter();
   const { selectedInstallment, selectedPaymentMethod, paymentData } =
     paymentContext;
 
   const totalAmount = selectedInstallment
     ? paymentData?.simulation.find(
-        (inst) => inst.installments === selectedInstallment
+        (inst) => inst.installments === selectedInstallment,
       )?.amountToPay
     : paymentData?.amount;
 
+  const handlePayment = () => {
+    router.push("/payment-success");
+  };
+
   return (
-    <div className="flex w-full bg-white border-t-2 items-center px-4 py-6 justify-between">
+    <div className="flex w-full items-center justify-between bg-white px-4 py-6 shadow-xl">
       <div>
-        <p>Valor a ser pago</p>
-        <p className="font-bold text-lg">
-          {paymentData?.currency === "BRL" ? "R$" : paymentData?.currency}{" "}
-          {totalAmount?.toFixed(2).replace(".", ",")}
-        </p>
+        <Text>Valor a ser pago</Text>
+        <Text className="flex flex-col text-xl font-bold">
+          {totalAmount === undefined
+            ? "Carregando..."
+            : selectedInstallment
+              ? `${selectedInstallment}x de ${
+                  paymentData?.currency === "BRL" ? "R$" : paymentData?.currency
+                } ${(totalAmount / selectedInstallment)
+                  .toFixed(2)
+                  .replace(".", ",")}`
+              : `${paymentData?.currency === "BRL" ? "R$" : paymentData?.currency} ${totalAmount
+                  .toFixed(2)
+                  .replace(".", ",")}`}
+        </Text>
       </div>
       <Button
+        className={
+          !selectedInstallment && selectedPaymentMethod !== "account"
+            ? ""
+            : "bg-midway-green-600"
+        }
         variant={
           !selectedInstallment && selectedPaymentMethod !== "account"
             ? "disabled"
             : "default"
         }
+        disabled={!selectedInstallment && selectedPaymentMethod !== "account"}
+        onClick={isInsideSheet ? closeSheet : handlePayment}
       >
-        Pagar
+        <Text className="text-lg font-medium text-white">
+          {isInsideSheet ? "Continuar" : "Pagar"}
+        </Text>
       </Button>
     </div>
   );

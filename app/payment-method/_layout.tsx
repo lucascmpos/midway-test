@@ -2,18 +2,25 @@ import * as SplashScreen from "expo-splash-screen";
 import "react-native-reanimated";
 import Footer from "./components/footer";
 import PaymentMethodScreen from "./index";
-import { useContext } from "react";
-import { PaymentProvider } from "../context/payment-context";
+import { useState } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function PaymentMethodLayout() {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const handleSheetChange = (index: number) => {
+    setIsSheetOpen(index !== -1);
+  };
+
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-grow overflow-y-auto">
-        <PaymentMethodScreen />
+    <div className="flex h-full flex-col">
+      <div
+        className={`flex-grow ${isSheetOpen ? "overflow-y-hidden" : "overflow-y-auto"}`}
+      >
+        <PaymentMethodScreen onSheetChange={handleSheetChange} />
       </div>
-      <Footer />
+      {!isSheetOpen && <Footer />}
     </div>
   );
 }

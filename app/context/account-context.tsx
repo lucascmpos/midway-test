@@ -9,7 +9,7 @@ interface AccountContextProps {
 }
 
 export const AccountContext = createContext<AccountContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const AccountProvider: React.FC<{ children: ReactNode }> = ({

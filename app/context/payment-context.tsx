@@ -1,6 +1,6 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { fetchPaymentData } from "@/app/api/fetch-payment-data";
-import { PaymentData } from "@/app/types/payment-data";
+import { PaymentData, Installment } from "@/app/types/payment-data";
 
 interface PaymentContextProps {
   selectedPaymentMethod: string | null;
@@ -9,23 +9,13 @@ interface PaymentContextProps {
   setSelectedInstallment: (installment: number | null) => void;
   paymentData: PaymentData | null;
   setPaymentData: (data: PaymentData | null) => void;
-  installments: {
-    installmentAmount: number;
-    amountToPay: number;
-    installments: number;
-  }[];
-  setInstallments: (
-    installments: {
-      installmentAmount: number;
-      amountToPay: number;
-      installments: number;
-    }[]
-  ) => void;
+  installments: Installment[];
+  setInstallments: (installments: Installment[]) => void;
   loading: boolean;
 }
 
 export const PaymentContext = createContext<PaymentContextProps | undefined>(
-  undefined
+  undefined,
 );
 
 export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
@@ -35,12 +25,10 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
     string | null
   >(null);
   const [selectedInstallment, setSelectedInstallment] = useState<number | null>(
-    null
+    null,
   );
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
-  const [installments, setInstallments] = useState<
-    { installmentAmount: number; amountToPay: number; installments: number }[]
-  >([]);
+  const [installments, setInstallments] = useState<Installment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -58,11 +46,18 @@ export const PaymentProvider: React.FC<{ children: ReactNode }> = ({
     getData();
   }, []);
 
+  const handlePaymentMethodChange = (method: string | null) => {
+    setSelectedPaymentMethod(method);
+    if (method === "account") {
+      setSelectedInstallment(null);
+    }
+  };
+
   return (
     <PaymentContext.Provider
       value={{
         selectedPaymentMethod,
-        setSelectedPaymentMethod,
+        setSelectedPaymentMethod: handlePaymentMethodChange,
         selectedInstallment,
         setSelectedInstallment,
         paymentData,

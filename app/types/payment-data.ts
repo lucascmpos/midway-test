@@ -1,3 +1,19 @@
+export interface Installment {
+  installmentAmount: number;
+  amountToPay: number;
+  installments: number;
+  fees: {
+    fixed: {
+      amount: number;
+      percentage: number;
+    };
+    installments: {
+      amount: number;
+      percentage: number;
+    };
+  };
+}
+
 export interface PaymentData {
   transactionId: string;
   amount: number;
@@ -7,19 +23,5 @@ export interface PaymentData {
     id: string;
   };
   method: "credit_card" | "account";
-  simulation: {
-    amountToPay: number;
-    installmentAmount: number;
-    installments: number;
-    fees: {
-      fixed: {
-        amount: number;
-        percentage: number;
-      };
-      installments: {
-        amount: number;
-        percentage: number;
-      };
-    };
-  }[];
+  simulation: Installment[];
 }

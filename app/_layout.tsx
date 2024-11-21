@@ -25,8 +25,9 @@ export default function RootLayout() {
             screenOptions={{
               headerShown: false,
               contentStyle: {
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "#F7F7F7",
               },
+              gestureEnabled: false,
             }}
           >
             <Stack.Screen
@@ -34,7 +35,7 @@ export default function RootLayout() {
               options={{
                 title: "Home",
                 contentStyle: {
-                  backgroundColor: "#FFFFFF",
+                  backgroundColor: "#F7F7F7",
                 },
               }}
             />
@@ -43,8 +44,18 @@ export default function RootLayout() {
               options={{
                 title: "Payment Method",
                 contentStyle: {
-                  backgroundColor: "#FFFFFF",
+                  backgroundColor: "#F7F7F7",
                 },
+              }}
+            />
+            <Stack.Screen
+              name="payment-success"
+              options={{
+                title: "Payment Success",
+                contentStyle: {
+                  backgroundColor: "#F7F7F7",
+                },
+                gestureEnabled: false,
               }}
             />
           </Stack>

@@ -1,7 +1,8 @@
 import React from "react";
 import VisaIcon from "../assets/icons/visa-icon.svg";
 import MasterCardIcon from "../assets/icons/mastercard-icon.svg";
-import { Image } from "react-native";
+import { Image, Text, View, TouchableOpacity } from "react-native";
+import RadioButton from "./radio-button";
 
 interface PaymentOptionProps {
   method: "credit_card" | "account";
@@ -12,6 +13,7 @@ interface PaymentOptionProps {
   currency?: string;
   onSelect: () => void;
   uniqueId: string;
+  selected: boolean;
 }
 
 const PaymentOption: React.FC<PaymentOptionProps> = ({
@@ -22,56 +24,46 @@ const PaymentOption: React.FC<PaymentOptionProps> = ({
   balance,
   currency,
   onSelect,
-  uniqueId,
+  selected,
 }) => {
-  const inputId = `${method}-${uniqueId}`;
   return (
-    <div className="py-4 px-3 w-full items-center flex shadow-md rounded-lg">
-      <label className="flex items-center">
-        <input
-          className="peer hidden"
-          type="radio"
-          id={inputId}
-          name="paymentMethod"
-          value={inputId}
-          onChange={onSelect}
-        />
-        <span
-          className="w-6 h-6 flex justify-center items-center border-2 rounded-full 
-               border-midway-green-600 peer-checked:bg-midway-green-600 peer-checked:border-midway-green-600 
-               hover:border-midway-green-600/90 p-1"
-        ></span>
-      </label>
-      <label htmlFor={inputId} className="ml-2">
+    <TouchableOpacity
+      onPress={onSelect}
+      className="mb-4 flex flex-row items-center rounded-lg bg-white px-3 py-4 shadow"
+    >
+      <RadioButton selected={selected} onPress={onSelect} />
+      <View className="ml-2">
         {method === "credit_card" ? (
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
+          <View className="flex flex-col gap-2">
+            <View className="flex flex-row items-center gap-2">
               {brand === "Visa" ? (
-                <Image source={VisaIcon} alt="Visa" className="w-6 h-6" />
+                <Image className="h-6 w-6" alt="Visa" source={VisaIcon} />
               ) : brand === "Master" ? (
                 <Image
-                  source={MasterCardIcon}
+                  className="h-6 w-6"
                   alt="MasterCard"
-                  className="w-6 h-6"
+                  source={MasterCardIcon}
                 />
               ) : null}
-              <p className="text-midway-green-600 font-semibold">{cardName}</p>
-            </div>
-            <p className="text-sm">Final {cardNumber}</p>
-          </div>
+              <Text className="text-[16px] font-semibold text-midway-green-600">
+                {cardName}
+              </Text>
+            </View>
+            <Text>Final {cardNumber}</Text>
+          </View>
         ) : (
-          <div className="flex flex-col gap-2">
-            <p className="text-midway-green-600 text-md font-semibold">
+          <View>
+            <Text className="text-[16px] font-semibold text-midway-green-600">
               Saldo em conta
-            </p>
-            <p className="text-sm">
+            </Text>
+            <Text className="text-sm">
               Disponível: {currency === "BRL" ? "R$" : currency}{" "}
               {balance?.toLocaleString("pt-BR")}
-            </p>
-          </div>
+            </Text>
+          </View>
         )}
-      </label>
-    </div>
+      </View>
+    </TouchableOpacity>
   );
 };
 
