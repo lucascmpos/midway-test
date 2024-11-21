@@ -54,8 +54,8 @@ Desenvolver uma interface de usuário conforme protótipo de UX para uma jornada
       # Terminal 2
     # Rodar o codigo
     $ npm expo start
-    $ Aperte w no terminal para abrir na web (navegador)
-    $ Caso tentar rodar via android nao ira abrir, pois precisa do JSON server rodando localmente.
+    # Aperte w no terminal para abrir na web (navegador)
+    # Caso tentar rodar via android nao ira abrir, pois precisa do JSON server rodando localmente.
 ```
 
 ---
