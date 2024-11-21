@@ -1,50 +1,61 @@
-# Welcome to your Expo app 👋
+<h1 align="center">
+   
+    Midway Test
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+   
+</h1>
 
-1. Install dependencies
+# 🎥 Video do projeto
 
-   ```bash
-   npm install
-   ```
+https://github.com/user-attachments/assets/71575685-c746-4770-b3cc-be83f8740b57
 
-2. Start the app
 
-   ```bash
-    npx expo start
-   ```
+# 🔍 Resumo
 
-In the output, you'll find options to open the app in a
+- [Sobre](#-sobre)
+- [Tech](#-tecnologias-utilizadas)
+- [Rodar](#-como-baixar-o-projeto)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 📗 Sobre
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Desenvolver uma interface de usuário conforme protótipo de UX para uma jornada de pagamento via PIX utilizando cartão de crédito. Usuário pode escolher entre saldo bancario ou cartão de crédito parcelado para realizar o pagamento via PIX.
 
-## Get a fresh project
 
-When you're ready, run:
+## 🚀 Tecnologias utilizadas
 
-```bash
-npm run reset-project
+- React Native
+- Expo
+- TypeScript
+- JSON Server
+- Tailwind CSS
+- Lucide Icons
+- Figma
+
+---
+
+## 🎮 Como baixar o projeto
+
+
+```bash - cmd
+
+    # Clonar o projeto
+    $ git clone https://github.com/lucascmpos/midway-test
+
+    # Instalar dependencias
+    $ npm i
+    
+   # Rodar o projeto
+
+      # Terminal 1
+    # Rodar o servidor mockado JSON atraves do json-server
+    $ json-server --watch db.json --port 3001
+
+      # Terminal 2
+    # Rodar o codigo
+    $ npm expo start
+    # Aperte w no terminal para abrir na web (navegador)
+    # Caso tentar rodar via android nao ira abrir, pois precisa do JSON server rodando localmente.
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
